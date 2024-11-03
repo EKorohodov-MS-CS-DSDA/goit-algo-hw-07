@@ -31,14 +31,14 @@ def search(root, key):
         return search(root.left, key)
     return search(root.right, key)
 
-def min_value_node(node):
-    current = node
+def get_min_value_node(root):
+    current = root
     while current.left:
         current = current.left
     return current
 
-def max_value_node(node):
-    current = node
+def get_max_value_node(root):
+    current = root
     while current.right:
         current = current.right
     return current
@@ -60,14 +60,14 @@ def delete(root, key):
             temp = root.left
             root = None
             return temp
-        root.val = min_value_node(root.right).val
+        root.val = get_min_value_node(root.right).val
         root.right = delete(root.right, root.val)
     return root
 
-def get_sum(root):
+def get_values_sum(root):
     if root is None:
         return 0
-    return root.val + get_sum(root.left) + get_sum(root.right)
+    return root.val + get_values_sum(root.left) + get_values_sum(root.right)
 
 
 def main():
@@ -77,9 +77,9 @@ def main():
         root = insert(root, i)
 
     print(f"Tree: {root}")
-    print(f"Tree min value: {min_value_node(root).val}")
-    print(f"Tree max value: {max_value_node(root).val}")
-    print(f"Tree values sum: {get_sum(root)}")
+    print(f"Tree min value: {get_min_value_node(root).val}")
+    print(f"Tree max value: {get_max_value_node(root).val}")
+    print(f"Tree values sum: {get_values_sum(root)}")
 
 if __name__ == "__main__":
     main()
